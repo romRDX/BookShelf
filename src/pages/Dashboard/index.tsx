@@ -2,6 +2,7 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createBook } from '../../store/ducks/books/actions';
+import * as bookStore from '../../services/bookStore';
 
 import 'react-day-picker/lib/style.css';
 import {
@@ -40,19 +41,11 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(()=> {
-    const storedBooks = localStorage.getItem('Sheetgo/Books');
-
-    if(storedBooks) {
-      setAvailableBooks(JSON.parse(storedBooks));
-    } else {
-      setAvailableBooks(books);
-      localStorage.setItem('Sheetgo/Books', JSON.stringify(books));
-    }
+    setAvailableBooks(bookStore.get());
   }, []);
 
   useEffect(()=>{
-    localStorage.removeItem('Sheetgo/Books')
-    localStorage.setItem('Sheetgo/Books', JSON.stringify(availableBooks));
+    bookStore.put(availableBooks);
   },[availableBooks]);
 
   const toggleModal = useCallback( (): void => {

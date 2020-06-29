@@ -12,7 +12,7 @@ const App: React.FC = () => (
   <>
     <BrowserRouter>
       <Provider store={store}>
-          <Routes />
+        <Routes />
       </Provider>
       <GlobalStyle />
     </BrowserRouter>
