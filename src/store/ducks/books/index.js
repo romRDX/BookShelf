@@ -2,10 +2,12 @@ import { BooksTypes } from './types';
 
 import initialState from './initialState';
 
+import * as bookStore from '../../../services/bookStore.tsx';
+
+const storedBooks = bookStore.get();
+
 const INITIAL_STATE = {
-  data: initialState,
-  error: false,
-  loading: false,
+  data: storedBooks ? storedBooks : initialState,
 };
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -13,8 +15,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     case BooksTypes.CREATE_BOOK:
       return {
         ...state,
-        loading: false,
-        error: false,
         data: [...state.data, action.newBook],
       };
 

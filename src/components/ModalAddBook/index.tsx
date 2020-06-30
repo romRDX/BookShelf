@@ -13,7 +13,7 @@ import { Book } from '../../store/ducks/books/types';
 interface ICreateBookBook {
   id: string;
   img: string;
-  timestamp: number;
+  created_at: Date;
   title: string;
   description: string;
   author: string;

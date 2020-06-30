@@ -12,7 +12,7 @@ export enum BooksTypes {
 export interface Book {
   id: string;
   img: string;
-  timestamp: number;
+  created_at: Date;
   title: string;
   description: string;
   author: string;

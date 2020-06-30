@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Container, BooksList, Book } from './styles';
+import { useHistory } from 'react-router-dom';
 
 interface Book {
   id: string;
   img: string;
-  timestamp: number;
+  created_at: Date;
   title: string;
   description: string;
   author: string;
@@ -20,12 +21,18 @@ const BooksContainer: React.FC<BooksContainerProps> = ({
   booksProps,
   children,
 }) => {
+  const history = useHistory();
+
+  const sendToDetails = useCallback((book: Book)=>{
+    history.push('/book-details', book );
+  },[]);
+
   return (
     <Container>
       {children}
       <BooksList>
         {booksProps.map((book: Book) => (
-          <Book onClick={() => { console.log('a')}} key={book.id}>
+          <Book onClick={() => sendToDetails(book)} key={book.id}>
             <img src={book.img} alt={book.title} />
             <strong>{book.title}</strong>
             <strong>{book.author}</strong>

@@ -41,7 +41,7 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(()=> {
-    setAvailableBooks(bookStore.get());
+      setAvailableBooks(books);
   }, []);
 
   useEffect(()=>{
@@ -62,11 +62,8 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   }, [setEditingBook, toggleEditModal]);
 
   const handleAddBook = useCallback( (newBook: Book): void => {
-    console.log('1');
     dispatch(createBook(newBook));
-    console.log('2');
     setAvailableBooks(previousState => [...previousState, newBook]);
-    console.log('3');
   }, [dispatch, setAvailableBooks]);
 
   const wantToReadBooks = useMemo(() => {

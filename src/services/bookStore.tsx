@@ -3,13 +3,11 @@
  */
 import { Book } from '../store/ducks/books/types';
 
-export const get = (): Book[] => {
+export const get = () => {
   const bookStore = localStorage.getItem('Sheetgo/Books');
 
   if(bookStore){
     return JSON.parse(bookStore);
-  } else {
-    throw new Error('No storage found');
   }
 };
 
@@ -23,7 +21,7 @@ export const patch = (updatedBook: Book) => {
 
   const storedBooks = get();
 
-  const updatedStoredBooks = storedBooks.map( book => {
+  const updatedStoredBooks = storedBooks.map( (book:Book) => {
     if(book.id === updatedBook.id){
       return updatedBook;
     }
