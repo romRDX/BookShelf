@@ -16,10 +16,10 @@ import ModalAddBook from '../../components/ModalAddBook';
 import Header from './components/Header';
 import BooksContainer from './components/BooksContainer';
 
-import { Book } from '../../store/ducks/books/types';
+import { IBook } from '../../store/ducks/books/types';
 
 interface StateProps {
-  books: Book[];
+  books: IBook[];
 }
 
 interface DispatchProps {
@@ -28,15 +28,15 @@ interface DispatchProps {
 
 interface Statex {
   books: {
-    data: Book[]
+    data: IBook[]
   }
 }
 
 type Props = StateProps & DispatchProps
 
 const Dashboard: React.FC<Props> = ({books, dispatch}) => {
-  const [availableBooks, setAvailableBooks] = useState<Book[]>([]);
-  const [editingBook, setEditingBook] = useState<Book>({} as Book);
+  const [availableBooks, setAvailableBooks] = useState<IBook[]>([]);
+  const [editingBook, setEditingBook] = useState<IBook>({} as IBook);
   const [modalOpen, setModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
 
@@ -56,12 +56,12 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
     setEditModalOpen(!editModalOpen);
   },[setEditModalOpen, editModalOpen]);
 
-  const handleEditFood = useCallback((book: Book): void => {
+  const handleEditFood = useCallback((book: IBook): void => {
     setEditingBook(book);
     toggleEditModal();
   }, [setEditingBook, toggleEditModal]);
 
-  const handleAddBook = useCallback( (newBook: Book): void => {
+  const handleAddBook = useCallback( (newBook: IBook): void => {
     dispatch(createBook(newBook));
     setAvailableBooks(previousState => [...previousState, newBook]);
   }, [dispatch, setAvailableBooks]);

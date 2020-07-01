@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { shade, lighten } from 'polished';
+import { shade } from 'polished';
 
 export const Container = styled.div`
   width: 100%;
@@ -87,41 +87,11 @@ export const AddCommentSection = styled.div`
       }
     }
   }
-
 `;
-
 
 export const CommentsSection = styled.div`
   border-top: 1px solid black;
   padding-top: 40px;
   margin: 50px 0;
-
-`;
-
-export const Comment = styled.div`
-  border: 0;
-  color: black;
-  display: flex;
-  margin-bottom: 30px;
-
-  svg {
-    width: 60px;
-    height: 60px;
-    color: #FDCD67;
-  }
-
-  div {
-    padding: 13px;
-    background: lightgray;
-    border-radius: 15px;
-
-    strong {
-      font-size: 18px;
-      font-family: "Roboto";
-    }
-
-    p {
-      font-size: 14px;
-    }
-  }
+  width: 100%;
 `;

@@ -4,12 +4,13 @@
 export enum BooksTypes {
   CREATE_BOOK = '@books/CREATE_BOOK',
   EDIT_BOOK = '@books/EDIT_BOOK',
+  DELETE_BOOK = '@books/DELETE_BOOK',
 }
 
 /**
  * Data Types
  */
-export interface Book {
+export interface IBook {
   id: string;
   img: string;
   created_at: Date;

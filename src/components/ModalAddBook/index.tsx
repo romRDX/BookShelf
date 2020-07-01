@@ -8,23 +8,12 @@ import Input from '../Input';
 import bookImage from '../../assets/book.jpg';
 import { v4 as uuid } from 'uuid';
 
-import { Book } from '../../store/ducks/books/types';
-
-interface ICreateBookBook {
-  id: string;
-  img: string;
-  created_at: Date;
-  title: string;
-  description: string;
-  author: string;
-  category: string;
-  deleted: boolean;
-}
+import { IBook } from '../../store/ducks/books/types';
 
 interface IModalProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleAddBook: (book: Book) => void;
+  handleAddBook: (book: IBook) => void;
 }
 
 const ModalAddBook: React.FC<IModalProps> = ({
@@ -34,22 +23,20 @@ const ModalAddBook: React.FC<IModalProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback((book: ICreateBookBook) => {
+  const handleSubmit = useCallback((book: IBook) => {
 
       const newBook = {
         ...book,
         id: uuid(),
         img: bookImage,
-        timestamp: Date.now(),
+        created_at: new Date(Date.now()),
         category: '',
         deleted: false,
       }
 
       handleAddBook(newBook);
       setIsOpen();
-    },
-    [handleAddBook, setIsOpen],
-  );
+    }, [handleAddBook, setIsOpen]);
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>

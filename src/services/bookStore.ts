@@ -1,7 +1,9 @@
 /**
  * Local Books Storage Service
  */
-import { Book } from '../store/ducks/books/types';
+import { IBook } from '../store/ducks/books/types';
+
+// post
 
 export const get = () => {
   const bookStore = localStorage.getItem('Sheetgo/Books');
@@ -11,17 +13,17 @@ export const get = () => {
   }
 };
 
-export const put = (books: Book[]) => {
+export const put = (books: IBook[]) => {
   localStorage.removeItem('Sheetgo/Books')
   localStorage.setItem('Sheetgo/Books', JSON.stringify(books));
 };
 
-export const patch = (updatedBook: Book) => {
+export const patch = (updatedBook: IBook) => {
   // localStorage.removeItem('Sheetgo/Books');
 
   const storedBooks = get();
 
-  const updatedStoredBooks = storedBooks.map( (book:Book) => {
+  const updatedStoredBooks = storedBooks.map( (book: IBook) => {
     if(book.id === updatedBook.id){
       return updatedBook;
     }

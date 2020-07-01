@@ -1,61 +1,76 @@
 import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
-import { Container, Content, AddCommentSection, CommentsSection, Comment } from './styles';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+
+import { createComment, editComment, deleteComment } from '../../../../store/ducks/comments/actions';
+import * as commentStore from '../../../../services/commentStore';
 
 import Input from '../../../../components/Input';
 import TextArea from '../../../../components/TextArea';
+import Comment from './components/comment';
+
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 
-import { AccountCircle } from '@material-ui/icons';
+import { IComment } from '../../../../store/ducks/comments/types';
+import { IBook } from '../../../../store/ducks/books/types';
 
-interface Book {
-  id: string;
-  img: string;
-  created_at: Date;
-  title: string;
-  description: string;
-  author: string;
-  category: string;
-  deleted: boolean;
+import { Container, Content, AddCommentSection, CommentsSection } from './styles';
+
+interface State {
+  comments: {
+    data: IComment[]
+  }
 }
 
-interface EditingBookProps {
-  editingBook: Book;
+interface StateProps {
+  comments: IComment[];
+  selectedBook: IBook;
+  dispatch: Dispatch;
+  setIsOpen: (comment: IComment) => void;
 }
 
-interface newComment {
-  name: string;
-}
+const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIsOpen}) => {
+  const [bookComments, setBookComments] = useState<IComment[]>([]);
 
-interface ICreateComment {
-  id: string;
-  img: string;
-  created_at: Date;
-  title: string;
-  description: string;
-  author: string;
-  category: string;
-  deleted: boolean;
-}
+  useEffect(()=>{
+    commentStore.put(comments);
+  },[comments]);
 
-const Comments: React.FC = () => {
+  useEffect(()=>{
+    setBookComments(comments);
+  },[comments]);
 
-  // const handleSubmit = useCallback((book: ICreateBook) => {
-  //   console.log('a: ', book);
-  // }, []);
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback((comment: ICreateComment) => {
+  const handleSubmit = useCallback((comment: IComment) => {
+    const newComment = {
+      ...comment,
+      parentId: selectedBook.id
+    }
 
-    console.log(comment);
+    const formattedComment = commentStore.post(newComment);
+    dispatch(createComment(formattedComment));
+  }, [selectedBook]);
 
-  },
-  [formRef],
-);
-
-  const formattedDate = useMemo(() => {
-
+  const handleEditComment = useCallback( (updatedComment: IComment) => {
+    dispatch(editComment(updatedComment));
   }, []);
+
+  const handleDeleteComment = useCallback( (commentId: string) => {
+    dispatch(deleteComment(commentId));
+    commentStore.deleteComment(commentId);
+  }, []);
+
+  const formattedComments = useMemo(() => {
+    const thisBookComments = bookComments.filter( comment => comment.parentId === selectedBook.id);
+    return thisBookComments;
+  }, [bookComments, selectedBook]);
+
+  const formatDate = useCallback((created_at: Date) => {
+    const date = new Date(created_at);
+    return date.toLocaleDateString();
+  }, [selectedBook]);
 
   return (
     <Container>
@@ -63,30 +78,32 @@ const Comments: React.FC = () => {
         <AddCommentSection>
           <strong>Comments</strong>
           <Form onSubmit={handleSubmit}>
-            <Input name="commentName" placeholder="Type your name" />
-            <TextArea name="commentText" placeholder="Type your comment here" rows={9} cols={85} />
+            <Input name="author" placeholder="Type your name" />
+            <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />
             <button type="submit" data-testid="add-book-button">Publish</button>
           </Form>
         </AddCommentSection>
         <CommentsSection>
-          <Comment>
-            <AccountCircle />
-            <div>
-              <strong>Teste</strong>
-              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a blandit augue, ullamcorper hendrerit nibh. Sed finibus porttitor massa ut ultrices. Nullam at purus arcu. Aenean consectetur urna non lectus malesuada, vel tincidunt dolor venenatis.</p>
-            </div>
-          </Comment>
-          <Comment>
-            <AccountCircle />
-            <div>
-              <strong>Teste</strong>
-              <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a blandit augue, ullamcorper hendrerit nibh. Sed finibus porttitor massa ut ultrices. Nullam at purus arcu. Aenean consectetur urna non lectus malesuada, vel tincidunt dolor venenatis.</p>
-            </div>
-          </Comment>
+          { formattedComments &&
+            formattedComments.map( (comment: IComment) => (
+              !comment.deleted &&
+              <Comment
+                key={comment.id}
+                handleEditComment={handleEditComment}
+                handleDeleteComment={handleDeleteComment}
+                comment={comment}
+                setIsOpen={setIsOpen}
+              />
+            ))
+          }
         </CommentsSection>
       </Content>
     </Container>
   );
 };
 
-export default Comments;
+const mapStateToProps = (state: State) => ({
+  comments: state.comments.data,
+});
+
+export default connect(mapStateToProps)(Comments);

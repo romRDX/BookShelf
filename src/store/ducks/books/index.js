@@ -2,7 +2,7 @@ import { BooksTypes } from './types';
 
 import initialState from './initialState';
 
-import * as bookStore from '../../../services/bookStore.tsx';
+import * as bookStore from '../../../services/bookStore.ts';
 
 const storedBooks = bookStore.get();
 

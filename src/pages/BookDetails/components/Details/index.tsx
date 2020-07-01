@@ -12,21 +12,21 @@ interface Book {
   deleted: boolean;
 }
 
-interface EditingBookProps {
-  editingBook: Book;
+interface SelectedBookProps {
+  selectedBook: Book;
 }
 
-const Details: React.FC<EditingBookProps> = ({
-  editingBook
+const Details: React.FC<SelectedBookProps> = ({
+  selectedBook
 }) => {
 
   const formattedDate = useMemo(() => {
-    const date = new Date(editingBook.created_at)
+    const date = new Date(selectedBook.created_at)
     return date.toLocaleDateString();
-  }, [editingBook]);
+  }, [selectedBook]);
 
   const formattedCategory = useMemo(() => {
-    switch(editingBook.category) {
+    switch(selectedBook.category) {
       case 'wantToRead':
         return 'Want to read';
       case 'reading':
@@ -36,19 +36,19 @@ const Details: React.FC<EditingBookProps> = ({
       default:
         return 'Uncategorized'
     }
-  }, [editingBook]);
+  }, [selectedBook]);
 
   return (
     <Container>
       <Content>
-        <img src={editingBook.img} alt={editingBook.title} />
+        <img src={selectedBook.img} alt={selectedBook.title} />
 
         <BookInfo>
-          <strong>{editingBook.title}</strong>
-          <span>Author: {editingBook.author}</span>
+          <strong>{selectedBook.title}</strong>
+          <span>Author: {selectedBook.author}</span>
           <span>Published: {formattedDate}</span>
           <span>Category: {formattedCategory}</span>
-          <p>Description: <br/> {editingBook.description}</p>
+          <p>Description: <br/> {selectedBook.description}</p>
         </BookInfo>
       </Content>
     </Container>

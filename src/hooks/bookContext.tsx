@@ -1,5 +1,5 @@
 import React, { createContext, useCallback, useState, useContext, useEffect } from 'react';
-import { Book } from '../store/ducks/books/types';
+import { IBook } from '../store/ducks/books/types';
 
 interface User {
   id: string;
@@ -19,9 +19,9 @@ interface SignInCredentials {
 }
 
 interface BookContextData {
-  selectedBook: Book;
-  selectBook(book: Book): void;
-  updateBook(data: Book): void;
+  selectedBook: IBook;
+  selectBook(book: IBook): void;
+  updateBook(data: IBook): void;
   deleteBook(id: string): void;
 
 
@@ -33,8 +33,8 @@ interface BookContextData {
 const AuthContext = createContext<BookContextData>({} as BookContextData);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [selectedBook, setSelectedBook] = useState<Book>({} as Book);
-  const [storedBooks, setStoredBooks] = useState<Book[]>([]);
+  const [selectedBook, setSelectedBook] = useState<IBook>({} as IBook);
+  const [storedBooks, setStoredBooks] = useState<IBook[]>([]);
 
   useEffect(()=>{
     const bookStore = localStorage.getItem('Sheetgo/Books');
@@ -46,13 +46,13 @@ export const AuthProvider: React.FC = ({ children }) => {
     }
   },[]);
 
-  const selectBook = useCallback( (book: Book) => {
+  const selectBook = useCallback( (book: IBook) => {
     setSelectedBook(book);
   }, []);
 
-  const updateBook = useCallback((updatedBook: Book) => {
+  const updateBook = useCallback((updatedBook: IBook) => {
 
-    const updatedStoredBooks = storedBooks.map( (book: Book) => {
+    const updatedStoredBooks = storedBooks.map( (book: IBook) => {
       if(book.id === updatedBook.id){
         return updatedBook;
       }
