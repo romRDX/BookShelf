@@ -1,8 +1,11 @@
 import styled from 'styled-components';
 
-export const Container = styled.div``;
+export const Container = styled.div`
+  /* position: relative; */
+`;
 
 export const Content = styled.main`
+position: relative;
   max-width: 920px;
   width: 100%;
   margin: 64px auto;

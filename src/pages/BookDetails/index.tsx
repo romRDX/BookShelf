@@ -2,7 +2,6 @@ import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createBook } from '../../store/ducks/books/actions';
-import * as bookStore from '../../services/bookStore';
 
 import 'react-day-picker/lib/style.css';
 import {
@@ -15,6 +14,7 @@ import Comments from './components/Comments';
 
 import ModalAddBook from '../../components/ModalAddBook';
 import ModalEditComment from '../../components/ModalEditComment';
+import GoBackButton from '../../components/GoBackButton';
 
 import Header from './components/Header';
 
@@ -61,6 +61,7 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
   }, [dispatch]);
 
   const handleEditComment = useCallback( (updatedComment: IComment) => {
+    // comment
     dispatch(editComment({...editingComment, ...updatedComment}));
 
   }, [dispatch, editingComment, editComment]);
@@ -85,6 +86,7 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
       <Content>
         <Details selectedBook={selectedBook}></Details>
         <Comments selectedBook={selectedBook} setIsOpen={toggleEditModal}></Comments>
+        <GoBackButton />
       </Content>
     </Container>
   );

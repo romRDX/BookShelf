@@ -4,7 +4,6 @@ import { Dispatch } from 'redux';
 import { createBook } from '../../store/ducks/books/actions';
 import * as bookStore from '../../services/bookStore';
 
-import 'react-day-picker/lib/style.css';
 import {
   Container,
   Content,
