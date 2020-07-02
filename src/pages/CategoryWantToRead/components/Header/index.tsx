@@ -27,24 +27,22 @@ const Header: React.FC<IProps> = ({ toggleModal, orderBy = true }) => {
     <Container>
       <HeaderContent>
         <LogoContainer>
-          <Link to="/dashboard">
-            <img src={logoImg} alt="BookShelf" />
-          </Link>
+          <img src={logoImg} alt="BookShelf" />
           <span>Welcome to BookShelf</span>
         </LogoContainer>
 
         <NavBar>
-          <Link to="/want-to-read">
+          <Link to="/new-book">
             <p>Want to Read</p>
             <CollectionsBookmark />
           </Link>
 
-          <Link to="/currently-reading">
+          <Link to="/new-book">
             <p>Currently Reading</p>
             <FiBookOpen />
           </Link>
 
-          <Link to="/read">
+          <Link to="/new-book">
             <p>Read</p>
             <FiBook />
           </Link>

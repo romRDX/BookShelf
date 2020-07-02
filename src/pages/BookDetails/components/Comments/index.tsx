@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 
 import { createComment, editComment, deleteComment } from '../../../../store/ducks/comments/actions';
 import * as commentStore from '../../../../services/commentStore';
+import {orderByDate , orderByAZ} from '../../../../utils/ordenator';
 
 import Input from '../../../../components/Input';
 import TextArea from '../../../../components/TextArea';
@@ -32,6 +33,8 @@ interface StateProps {
 
 const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIsOpen}) => {
   const [bookComments, setBookComments] = useState<IComment[]>([]);
+
+  orderByAZ();
 
   useEffect(()=>{
     commentStore.put(comments);
@@ -64,7 +67,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
 
   const formattedComments = useMemo(() => {
     const thisBookComments = bookComments.filter( comment => comment.parentId === selectedBook.id);
-    return thisBookComments;
+    return orderByDate(thisBookComments, 'asc');
   }, [bookComments, selectedBook]);
 
   const formatDate = useCallback((created_at: Date) => {
@@ -75,14 +78,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
   return (
     <Container>
       <Content>
-        <AddCommentSection>
-          <strong>Comments</strong>
-          <Form onSubmit={handleSubmit}>
-            <Input name="author" placeholder="Type your name" />
-            <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />
-            <button type="submit" data-testid="add-book-button">Publish</button>
-          </Form>
-        </AddCommentSection>
+        <strong>Comments</strong>
         <CommentsSection>
           { formattedComments &&
             formattedComments.map( (comment: IComment) => (
@@ -97,6 +93,14 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
             ))
           }
         </CommentsSection>
+        <AddCommentSection>
+        <strong>Add your comment</strong>
+          <Form onSubmit={handleSubmit}>
+            <Input name="author" placeholder="Type your name" />
+            <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />
+            <button type="submit" data-testid="add-book-button">Publish</button>
+          </Form>
+        </AddCommentSection>
       </Content>
     </Container>
   );

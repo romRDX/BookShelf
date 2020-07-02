@@ -4,8 +4,8 @@ import { shade } from 'polished';
 
 export const Container = styled.button`
   position: absolute;
-  top: -72px;
-  left: -70px;
+  top: -70px;
+  left: -85px;
   width: 60px;
   height: 60px;
   border: 4px solid lightgray;

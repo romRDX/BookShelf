@@ -21,10 +21,6 @@ export const Content = styled.div`
   img {
     max-width: 350px;
   }
-`;
-
-export const AddCommentSection = styled.div`
-  width: 100%;
 
   strong {
     display: block;
@@ -33,6 +29,18 @@ export const AddCommentSection = styled.div`
     font-family: 'Roboto';
     margin: 10px 0 15px;
   }
+`;
+
+export const CommentsSection = styled.div`
+  padding-top: 0px;
+  margin: 50px 0;
+  width: 100%;
+`;
+
+export const AddCommentSection = styled.div`
+  width: 100%;
+  border-top: 1px solid black;
+  padding-top: 20px;
 
   form {
     margin-top: 25px;
@@ -89,9 +97,3 @@ export const AddCommentSection = styled.div`
   }
 `;
 
-export const CommentsSection = styled.div`
-  border-top: 1px solid black;
-  padding-top: 40px;
-  margin: 50px 0;
-  width: 100%;
-`;

@@ -13,7 +13,7 @@ const Button: React.FC<ButtonProps> = ({ children, loading, ...restx }) => {
   const history = useHistory();
 
   const handleGoBack = useCallback(() => {
-    history.push('/dashboard');
+    history.goBack();
   },[history]);
 
   return (

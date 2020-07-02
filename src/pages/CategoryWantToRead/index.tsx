@@ -15,8 +15,10 @@ import {
 
 import ModalAddBook from '../../components/ModalAddBook';
 
-// import Header from './components/Header';
+import GoBackButton from '../../components/GoBackButton';
+
 import Header from '../../components/Header';
+
 import BooksContainer from './components/BooksContainer';
 
 import { IBook } from '../../store/ducks/books/types';
@@ -40,11 +42,9 @@ type Props = StateProps & DispatchProps
 const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [availableBooks, setAvailableBooks] = useState<IBook[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [categories, setCategories] = useState();
 
   useEffect(()=> {
       setAvailableBooks(books);
-      setCategories(categoryStore.get());
   }, [availableBooks]);
 
   useEffect(()=>{
@@ -60,20 +60,8 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
     setAvailableBooks(previousState => [...previousState, newBook]);
   }, [dispatch, setAvailableBooks]);
 
-  const uncategorizedBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'uncategorized');
-  }, [availableBooks, categoryStore, categories]);
-
   const wantToReadBooks = useMemo(() => {
     return availableBooks.filter((book) => book.category === 'wantToRead');
-  }, [availableBooks]);
-
-  const readingBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'reading');
-  }, [availableBooks]);
-
-  const readBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'read');
   }, [availableBooks]);
 
   return (
@@ -87,18 +75,10 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
       />
 
       <Content>
-        <BooksContainer booksProps={uncategorizedBooks}>
-          <SectionTitle>Uncategorized Books</SectionTitle>
-        </BooksContainer>
         <BooksContainer booksProps={wantToReadBooks}>
           <SectionTitle>Want to read Books</SectionTitle>
         </BooksContainer>
-        <BooksContainer booksProps={readingBooks}>
-          <SectionTitle>Currently reading books Books</SectionTitle>
-        </BooksContainer>
-        <BooksContainer booksProps={readBooks}>
-          <SectionTitle>Read Books</SectionTitle>
-        </BooksContainer>
+        <GoBackButton />
       </Content>
     </Container>
   );
