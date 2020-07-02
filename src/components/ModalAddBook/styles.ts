@@ -13,6 +13,17 @@ export const Form = styled(Unform)`
     margin-bottom: 40px;
   }
 
+  textarea {
+    border: 0;
+    margin: 0;
+    resize: none;
+
+    &::placeholder {
+      font-size: 20px;
+      color: #b7b7cc;
+    }
+  }
+
   button {
     margin-top: 48px;
     align-self: flex-end;

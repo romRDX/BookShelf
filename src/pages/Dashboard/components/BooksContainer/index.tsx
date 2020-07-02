@@ -32,7 +32,7 @@ const BooksContainer: React.FC<BooksContainerProps> = ({
       {children}
       <BooksList>
         {booksProps.map((book: Book) => (
-          <Book onClick={() => sendToDetails(book)} key={book.id}>
+          !book.deleted && <Book onClick={() => sendToDetails(book)} key={book.id}>
             <img src={book.img} alt={book.title} />
             <strong>{book.title}</strong>
             <strong>{book.author}</strong>

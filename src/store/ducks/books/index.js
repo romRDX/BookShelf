@@ -33,6 +33,26 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
+    case BooksTypes.DELETE_BOOK: {
+      const newData = state.data.map( (book) => {
+        if ( book.id === action.bookId) {
+          return {
+            ...book,
+            deleted: true
+          };
+        } else {
+          return book;
+        }
+      });
+
+      return {
+        ...state,
+        data: newData
+      }
+    }
+
+
+
     default:
       return state;
   }

@@ -1,24 +1,30 @@
-import React, { useState, useEffect, useMemo } from 'react';
-import { Container, Content, BookInfo } from './styles';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import * as categoryStore from '../../../../services/categoryStore';
 
-interface Book {
-  id: string;
-  img: string;
-  created_at: Date;
-  title: string;
-  description: string;
-  author: string;
-  category: string;
-  deleted: boolean;
-}
+
+import { Container, Content, BookInfo, Options } from './styles';
+import { Edit, Delete} from '@material-ui/icons';
+
+import {IBook} from '../../../../store/ducks/books/types';
+
 
 interface SelectedBookProps {
-  selectedBook: Book;
+  selectedBook: IBook;
+  handleDeleteBook: (bookId: string) => void;
+  setIsOpen: (book?: IBook) => void;
 }
 
 const Details: React.FC<SelectedBookProps> = ({
-  selectedBook
+  selectedBook,
+  handleDeleteBook,
+  setIsOpen,
 }) => {
+  const [deleteConfirmation, setDeleteConfirmation] = useState(false);
+  const [selectedBookDetails, setSelectedBookDetails] = useState<IBook>();
+
+  useEffect(()=>{
+    setSelectedBookDetails(selectedBook);
+  },[selectedBook]);
 
   const formattedDate = useMemo(() => {
     const date = new Date(selectedBook.created_at)
@@ -26,21 +32,23 @@ const Details: React.FC<SelectedBookProps> = ({
   }, [selectedBook]);
 
   const formattedCategory = useMemo(() => {
-    switch(selectedBook.category) {
-      case 'wantToRead':
-        return 'Want to read';
-      case 'reading':
-        return 'Reading'
-      case 'read':
-          return 'Read'
-      default:
-        return 'Uncategorized'
-    }
+    return categoryStore.get()[selectedBook.category];
   }, [selectedBook]);
 
   return (
     <Container>
       <Content>
+        <Options>
+          <button onClick={() => setIsOpen(selectedBook)}>Edit Book <Edit /></button>
+          { deleteConfirmation ?
+            <div>
+              <span>Are you sure?</span>
+              <button onClick={()=> handleDeleteBook(selectedBook.id)}>Yes</button>
+              <button onClick={() => setDeleteConfirmation(false)}>No</button>
+            </div> :
+            <button onClick={() => setDeleteConfirmation(true)}>Delete Book <Delete /></button>
+          }
+        </Options>
         <img src={selectedBook.img} alt={selectedBook.title} />
 
         <BookInfo>

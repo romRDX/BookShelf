@@ -8,6 +8,9 @@ import Routes from './routes';
 
 import GlobalStyle from './styles/global';
 
+import * as categoryStore from './services/categoryStore';
+categoryStore.post();
+
 const App: React.FC = () => (
   <>
     <BrowserRouter>

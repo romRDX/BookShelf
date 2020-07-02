@@ -5,6 +5,7 @@ import { FormHandles } from '@unform/core';
 import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
+import TextArea from '../TextArea';
 import bookImage from '../../assets/book.jpg';
 import { v4 as uuid } from 'uuid';
 
@@ -23,6 +24,12 @@ const ModalAddBook: React.FC<IModalProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null);
 
+  const categoryStore = {
+    wantToRead: 'Want to Read',
+    reading: 'Currently reading',
+    read: 'Read'
+  }
+
   const handleSubmit = useCallback((book: IBook) => {
 
       const newBook = {
@@ -30,7 +37,7 @@ const ModalAddBook: React.FC<IModalProps> = ({
         id: uuid(),
         img: bookImage,
         created_at: new Date(Date.now()),
-        category: '',
+        category: 'uncategorized',
         deleted: false,
       }
 
@@ -45,7 +52,7 @@ const ModalAddBook: React.FC<IModalProps> = ({
 
         <Input name="title" placeholder="Title" />
         <Input name="author" placeholder="Author" />
-        <Input name="description" placeholder="Description" />
+        <TextArea name="description" placeholder="Description" rows={9} cols={85}/>
 
         <button type="submit" data-testid="add-book-button">
           <p className="text">Add Book</p>

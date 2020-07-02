@@ -13,6 +13,24 @@ export const Form = styled(Unform)`
     margin-bottom: 40px;
   }
 
+  input {
+    color: black;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
+
+  textarea {
+    border: 0;
+    margin: 0;
+    resize: none;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
+
   button {
     margin-top: 48px;
     align-self: flex-end;
@@ -41,4 +59,9 @@ export const Form = styled(Unform)`
       margin: 0 auto;
     }
   }
+`;
+
+export const CategorySelector = styled.div`
+  display: flex;
+  flex-direction: row;
 `;

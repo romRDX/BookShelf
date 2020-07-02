@@ -1,60 +1,56 @@
 import React, { useRef, useCallback } from 'react';
 
+import * as categoryStore from '../../services/categoryStore';
+
 import { FiCheckSquare } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
-import { Form } from './styles';
+import { Form, CategorySelector } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
+import InputRadio from '../InputRadio';
+import TextArea from '../TextArea';
 
-interface IFoodPlate {
-  id: number;
-  name: string;
-  image: string;
-  price: string;
-  description: string;
-  available: boolean;
-}
+import { IBook } from '../../store/ducks/books/types';
 
 interface IModalProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleUpdateFood: (food: Omit<IFoodPlate, 'id' | 'available'>) => void;
-  editingFood: IFoodPlate;
-}
-
-interface IEditFoodData {
-  name: string;
-  image: string;
-  price: string;
-  description: string;
+  handleEditBook: (book: IBook) => void;
+  editingBook: IBook;
 }
 
 const ModalEditFood: React.FC<IModalProps> = ({
   isOpen,
   setIsOpen,
-  editingFood,
-  handleUpdateFood,
+  editingBook,
+  handleEditBook,
 }) => {
   const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback(
-    async (data: IEditFoodData) => {
+    async (data: IBook) => {
       // EDIT A FOOD PLATE AND CLOSE THE MODAL
-      handleUpdateFood(data);
+      const formattedData = {
+        ...editingBook,
+        ...data,
+        category: data.category[0]
+      }
+
+      handleEditBook(formattedData);
       setIsOpen();
     },
-    [handleUpdateFood, setIsOpen],
+    [handleEditBook, setIsOpen],
   );
 
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit} initialData={editingFood}>
+      <Form ref={formRef} onSubmit={handleSubmit} initialData={editingBook}>
         <h1>Edit Book</h1>
 
         <Input name="title" placeholder="Title" />
         <Input name="author" placeholder="Author" />
-        <Input name="description" placeholder="Description" />
-
+        <InputRadio name="category" checkedValue={editingBook.category} options={Object.entries(categoryStore.get())} />
+        <TextArea name="description" placeholder="Description" rows={9} cols={85}/>
 
         <button type="submit" data-testid="edit-food-button">
           <div className="text">Editar Prato</div>

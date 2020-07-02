@@ -35,9 +35,7 @@ type Props = StateProps & DispatchProps
 
 const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [availableBooks, setAvailableBooks] = useState<IBook[]>([]);
-  const [editingBook, setEditingBook] = useState<IBook>({} as IBook);
   const [modalOpen, setModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
 
   useEffect(()=> {
       setAvailableBooks(books);
@@ -50,15 +48,6 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const toggleModal = useCallback( (): void => {
     setModalOpen(!modalOpen);
   },[setModalOpen, modalOpen]);
-
-  const toggleEditModal = useCallback( (): void => {
-    setEditModalOpen(!editModalOpen);
-  },[setEditModalOpen, editModalOpen]);
-
-  const handleEditFood = useCallback((book: IBook): void => {
-    setEditingBook(book);
-    toggleEditModal();
-  }, [setEditingBook, toggleEditModal]);
 
   const handleAddBook = useCallback( (newBook: IBook): void => {
     dispatch(createBook(newBook));
@@ -89,7 +78,7 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
 
       <Content>
         <BooksContainer booksProps={availableBooks}>
-          <SectionTitle>Uncategorized</SectionTitle>
+          <SectionTitle>All Books</SectionTitle>
         </BooksContainer>
         <BooksContainer booksProps={wantToReadBooks}>
           <SectionTitle>Want to read</SectionTitle>

@@ -39,7 +39,6 @@ export const put = (comments: IComment[]) => {
 };
 
 export const patch = (updatedComment: IComment) => {
-  // localStorage.removeItem('Sheetgo/Comments');
 
   const storedComments = get();
 

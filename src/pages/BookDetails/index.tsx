@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { createBook } from '../../store/ducks/books/actions';
+import { createBook, deleteBook, editBook } from '../../store/ducks/books/actions';
+import  * as bookStore from '../../services/bookStore';
 
 import 'react-day-picker/lib/style.css';
 import {
@@ -13,6 +14,7 @@ import Details from './components/Details';
 import Comments from './components/Comments';
 
 import ModalAddBook from '../../components/ModalAddBook';
+import ModalEditBook from '../../components/ModalEditBook';
 import ModalEditComment from '../../components/ModalEditComment';
 import GoBackButton from '../../components/GoBackButton';
 
@@ -37,7 +39,8 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
   const [editingBook, setEditingBook] = useState<IBook>({} as IBook);
   const [editingComment, setEditingComment] = useState<IComment>({} as IComment);
   const [modalOpen, setModalOpen] = useState(false);
-  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [editBookModalOpen, setEditBookModalOpen] = useState(false);
+  const [editCommentModalOpen, setEditCommentModalOpen] = useState(false);
 
   useEffect(()=> {
     setSelectedBook(location.state);
@@ -47,12 +50,19 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
     setModalOpen(!modalOpen);
   },[setModalOpen, modalOpen]);
 
-  const toggleEditModal = useCallback( (comment?: IComment): void => {
+  const toggleEditCommentModal = useCallback( (comment?: IComment): void => {
     if(comment){
       setEditingComment(comment);
     }
-    setEditModalOpen(!editModalOpen);
-  },[setEditModalOpen, editModalOpen, setEditingComment]);
+    setEditCommentModalOpen(!editCommentModalOpen);
+  },[setEditCommentModalOpen, editCommentModalOpen, setEditingComment]);
+
+  const toggleEditBookModal = useCallback( (book?: IBook): void => {
+    if(book){
+      setEditingBook(book);
+    }
+    setEditBookModalOpen(!editBookModalOpen);
+  },[setEditBookModalOpen, editBookModalOpen, setEditingBook]);
 
   const handleAddBook = useCallback( (newBook: IBook) => {
     dispatch(createBook(newBook));
@@ -60,10 +70,24 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
 
   }, [dispatch]);
 
+  const handleEditBook = useCallback( (updatedBook: IBook) => {
+    // comment
+    console.log(updatedBook);
+    bookStore.patch(updatedBook);
+    dispatch(editBook(updatedBook));
+    setSelectedBook(updatedBook);
+
+  }, [dispatch, editBook, setSelectedBook]);
+
+  const handleDeleteBook = useCallback((bookId: string) =>{
+    console.log('ola');
+    dispatch(deleteBook(bookId));
+    history.push('/dashboard');
+  }, []);
+
   const handleEditComment = useCallback( (updatedComment: IComment) => {
     // comment
     dispatch(editComment({...editingComment, ...updatedComment}));
-
   }, [dispatch, editingComment, editComment]);
 
   return (
@@ -77,15 +101,22 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
       />
 
       <ModalEditComment
-        isOpen={editModalOpen}
-        setIsOpen={toggleEditModal}
+        isOpen={editCommentModalOpen}
+        setIsOpen={toggleEditCommentModal}
         handleEditComment={handleEditComment}
         editingComment={editingComment}
       />
 
+      <ModalEditBook
+        isOpen={editBookModalOpen}
+        setIsOpen={toggleEditBookModal}
+        handleEditBook={handleEditBook}
+        editingBook={editingBook}
+      />
+
       <Content>
-        <Details selectedBook={selectedBook}></Details>
-        <Comments selectedBook={selectedBook} setIsOpen={toggleEditModal}></Comments>
+        <Details setIsOpen={toggleEditBookModal} selectedBook={selectedBook} handleDeleteBook={handleDeleteBook}></Details>
+        <Comments selectedBook={selectedBook} setIsOpen={toggleEditCommentModal}></Comments>
         <GoBackButton />
       </Content>
     </Container>

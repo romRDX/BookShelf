@@ -22,12 +22,16 @@ export const patch = (updatedBook: IBook) => {
   // localStorage.removeItem('Sheetgo/Books');
 
   const storedBooks = get();
-
+  console.log(updatedBook);
   const updatedStoredBooks = storedBooks.map( (book: IBook) => {
     if(book.id === updatedBook.id){
-      return updatedBook;
+      return {...updatedBook};
+    } else {
+      return book;
     }
   })
+
+  console.log(updatedStoredBooks);
 
   localStorage.setItem('Sheetgo/Books', JSON.stringify(updatedStoredBooks));
 };
