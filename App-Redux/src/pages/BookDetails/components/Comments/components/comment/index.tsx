@@ -1,5 +1,4 @@
 import React, { useCallback } from 'react';
-// import * as commentStore from '../../../../../../services/commentStore';
 
 import{ IComment } from '../../../../../../store/ducks/comments/types';
 
