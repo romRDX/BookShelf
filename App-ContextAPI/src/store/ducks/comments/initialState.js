@@ -1,0 +1,103 @@
+const exampleComment1 = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce a blandit augue, ullamcorper hendrerit nibh. Sed finibus porttitor massa ut ultrices. Nullam at purus arcu. Aenean consectetur urna non lectus malesuada, vel tincidunt dolor venenatis. Curabitur rutrum congue arcu, in luctus est rhoncus sed. Morbi viverra risus risus, vel porttitor est elementum sit amet. Morbi tempor odio eu egestas consequat. Duis quis efficitur mi. Sed ultrices orci quam, ac viverra mi efficitur non. Nulla vestibulum risus vel fermentum volutpat. Donec ac turpis facilisis, gravida diam sit amet, porttitor quam. Donec in odio quis nulla vulputate sodales.'
+const exampleComment2 = 'This is an amazing Book!';
+
+const comments = [
+  {
+    id: '1d260d0c-7b2f-4999-a0f9-39a73e3ec99b',
+    parentId: '2835c135-a5a5-4260-9d00-b68430b19f82',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'author 1',
+    deleted: false,
+  },
+  {
+    id: 'e4896847-eaba-4e1d-8e42-93459300ea0a',
+    parentId: '2835c135-a5a5-4260-9d00-b68430b19f82',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'author 1',
+    deleted: false,
+  },
+  {
+    id: '4a6970f8-c18b-4ad7-b02f-7d8a4b9f48d6',
+    parentId: '531f3e88-8b03-485c-9c84-1cbc9fcd5806',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'author 2',
+    deleted: false,
+  },
+  {
+    id: '994fcb8c-db12-4c6c-b590-f735a986ff13',
+    parentId: '531f3e88-8b03-485c-9c84-1cbc9fcd5806',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'author 2',
+    deleted: false,
+  },
+  {
+    id: 'a2a7cedd-024f-4a9f-b464-dc37d09a46e5',
+    parentId: 'b898aaa7-a47a-4274-9f22-f17b286aa4d1',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'author 3',
+    deleted: false,
+  },
+  {
+    id: 'ea484c3c-229a-4161-b486-5a6aeb7f1ca0',
+    parentId: 'b898aaa7-a47a-4274-9f22-f17b286aa4d1',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'author 3',
+    deleted: false,
+  },
+  {
+    id: '7363f443-de23-4bcc-8ada-ed057d6a942d',
+    parentId: 'c32c07d2-d2ae-4416-8a2c-1148c829c5a7',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'author 4',
+    deleted: false,
+  },
+  {
+    id: '6731457f-3b85-4541-8c85-16101c41601f',
+    parentId: 'c32c07d2-d2ae-4416-8a2c-1148c829c5a7',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'author 4',
+    deleted: false,
+  },
+  {
+    id: 'af8a732c-ef34-4cc1-b596-686ac8195338',
+    parentId: '4ccde7b5-9be1-4430-b2dd-1cef3d4a8239',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'auth 5',
+    deleted: false,
+  },
+  {
+    id: '0b6ed568-8de2-4861-a442-f9f1225b258e',
+    parentId: '4ccde7b5-9be1-4430-b2dd-1cef3d4a8239',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'auth 5',
+    deleted: false,
+  },
+  {
+    id: 'ffe99cca-ed82-405a-ac55-af073e55d56b',
+    parentId: 'f35d4319-a735-41ff-b89a-8eaa72d45982',
+    created_at: Date.now(),
+    body: exampleComment2,
+    author: 'auth 6',
+    deleted: false,
+  },
+  {
+    id: 'bbdecc42-3a24-4135-b981-cc0e9f697e06',
+    parentId: 'f35d4319-a735-41ff-b89a-8eaa72d45982',
+    created_at: Date.now(),
+    body: exampleComment1,
+    author: 'auth 6',
+    deleted: false,
+  },
+];
+
+export default comments;
