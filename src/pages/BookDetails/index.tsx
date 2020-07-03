@@ -18,7 +18,7 @@ import ModalEditBook from '../../components/ModalEditBook';
 import ModalEditComment from '../../components/ModalEditComment';
 import GoBackButton from '../../components/GoBackButton';
 
-import Header from './components/Header';
+import Header from '../../components/Header';
 
 import { IBook } from '../../store/ducks/books/types';
 import { IComment } from '../../store/ducks/comments/types';

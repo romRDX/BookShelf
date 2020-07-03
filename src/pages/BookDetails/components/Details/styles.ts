@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 100%;
-  max-width: 1120px;
   display: flex;
   flex-direction: column;
 `;
@@ -19,6 +18,11 @@ export const Content = styled.div`
 
   img {
     max-width: 350px;
+
+    @media only screen and (max-width: 1111px) {
+      max-height: 400px;
+      margin: 0 auto;
+    }
   }
 `;
 
@@ -30,6 +34,32 @@ export const BookInfo = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 1250px) {
+    max-width: 50%;
+  }
+
+  @media only screen and (max-width: 1110px) {
+    max-width: 40%;
+  }
+
+  @media only screen and (max-width: 1110px) {
+    max-width: 100%;
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+
+    strong {
+      margin: 10px 20px 0 20px;
+      text-align: center;
+    }
+
+    span {
+      margin: 20px 20px 0 20px;
+      text-align: center;
+    }
+  }
 
   strong {
     font-size: 30px;
@@ -44,8 +74,9 @@ export const BookInfo = styled.div`
   }
 
   p {
-    font-size: 14px;
+    font-size: 16px;
   }
+
 `;
 
 export const Options = styled.div`
@@ -54,7 +85,7 @@ export const Options = styled.div`
   padding: 10px 0;
   margin-bottom: 5px;
   display: flex;
-  /* justify-content: space-evenly; */
+
   div {
     color: #000;
     display: flex;
@@ -102,15 +133,11 @@ export const Options = styled.div`
     }
 
     &:last-child:hover svg {
-
-
         color: red;
-
     }
 
     svg {
       margin-left: 8px;
-
     }
   }
 `;

@@ -2,13 +2,17 @@ import styled from 'styled-components';
 
 export const Container = styled.div``;
 
-
 export const Content = styled.main`
+  position: relative;
   max-width: 1120px;
   width: 100%;
   margin: 64px auto;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 1200px) {
+    max-width: 85%;
+  }
 `;
 
 export const SectionTitle = styled.span`
@@ -23,5 +27,10 @@ export const SectionTitle = styled.span`
   a {
     text-decoration: none;
     color: black;
+  }
+
+  svg {
+    margin-left: 7px;
+    vertical-align: middle;
   }
 `;

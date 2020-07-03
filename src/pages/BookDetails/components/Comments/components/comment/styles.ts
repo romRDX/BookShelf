@@ -53,5 +53,9 @@ export const Options = styled.div`
     width: 25px;
     height: 25px;
     color: #000;
+
+    @media only screen and (max-width: 1110px) {
+        margin-left: 1px;
+    }
   }
 `;

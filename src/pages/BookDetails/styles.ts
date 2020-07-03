@@ -5,12 +5,17 @@ export const Container = styled.div`
 `;
 
 export const Content = styled.main`
-position: relative;
+  position: relative;
   max-width: 920px;
   width: 100%;
   margin: 64px auto;
   display: flex;
   flex-direction: column;
+
+  @media only screen and (max-width: 1320px) {
+    max-width: 75%;
+    margin: 72px auto 64px;
+  }
 `;
 
 export const SectionTitle = styled.span`
