@@ -19,4 +19,9 @@ export const SectionTitle = styled.span`
   width: 100%;
   padding: 5px 0;
   font-family: 'Roboto';
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
 `;

@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createBook } from '../../store/ducks/books/actions';
 import * as bookStore from '../../services/bookStore';
-import * as categoryStore from '../../services/categoryStore';
 
-import { orderByDate } from '../../utils/ordenator';
+import orderBy from '../../utils/orderBy';
+import filterBy from '../../utils/filterBy';
 
 import {
   Container,
@@ -19,7 +19,7 @@ import GoBackButton from '../../components/GoBackButton';
 
 import Header from '../../components/Header';
 
-import BooksContainer from './components/BooksContainer';
+import BooksContainer from '../../components/BooksContainer';
 
 import { IBook } from '../../store/ducks/books/types';
 
@@ -42,10 +42,13 @@ type Props = StateProps & DispatchProps
 const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [availableBooks, setAvailableBooks] = useState<IBook[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [orderType, setOrderType] = useState('A-Z');
+  const [orderDirection, setOrderDirection] = useState('ASC');
+  const [nameFilter, setNameFilter] = useState('');
 
   useEffect(()=> {
       setAvailableBooks(books);
-  }, [availableBooks]);
+  }, [books]);
 
   useEffect(()=>{
     bookStore.put(availableBooks);
@@ -61,12 +64,31 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   }, [dispatch, setAvailableBooks]);
 
   const wantToReadBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'wantToRead');
-  }, [availableBooks]);
+    const filteredBooks = filterBy(availableBooks, 'wantToRead', nameFilter);
+
+    if( orderType || orderDirection ){
+      console.log('un: ',filteredBooks);
+      return orderBy(filteredBooks, orderType, orderDirection);
+    } else {
+      console.log('2');
+      return filteredBooks;
+    }
+  }, [availableBooks, orderType, orderDirection, nameFilter]);
+
+  const setOrder = useCallback((orderOption: string): void => {
+
+  },[]);
 
   return (
     <Container>
-      <Header toggleModal={toggleModal} orderBy />
+      <Header
+        toggleModal={toggleModal}
+        orderBy
+        setOrderType={setOrderType}
+        setOrderDirection={setOrderDirection}
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+      />
 
       <ModalAddBook
         isOpen={modalOpen}

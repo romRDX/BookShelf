@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import * as categoryStore from '../../../../services/categoryStore';
 
 
@@ -20,11 +20,6 @@ const Details: React.FC<SelectedBookProps> = ({
   setIsOpen,
 }) => {
   const [deleteConfirmation, setDeleteConfirmation] = useState(false);
-  const [selectedBookDetails, setSelectedBookDetails] = useState<IBook>();
-
-  useEffect(()=>{
-    setSelectedBookDetails(selectedBook);
-  },[selectedBook]);
 
   const formattedDate = useMemo(() => {
     const date = new Date(selectedBook.created_at)

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { createBook, deleteBook, editBook } from '../../store/ducks/books/actions';
@@ -23,7 +23,7 @@ import Header from './components/Header';
 import { IBook } from '../../store/ducks/books/types';
 import { IComment } from '../../store/ducks/comments/types';
 import { useHistory } from 'react-router-dom';
-import { createComment, editComment } from '../../store/ducks/comments/actions';
+import { editComment } from '../../store/ducks/comments/actions';
 
 interface Statex {
   location: {
@@ -67,28 +67,25 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
   const handleAddBook = useCallback( (newBook: IBook) => {
     dispatch(createBook(newBook));
     history.push('book-details', newBook);
-
-  }, [dispatch]);
+  }, [dispatch, history]);
 
   const handleEditBook = useCallback( (updatedBook: IBook) => {
     // comment
-    console.log(updatedBook);
     bookStore.patch(updatedBook);
     dispatch(editBook(updatedBook));
     setSelectedBook(updatedBook);
 
-  }, [dispatch, editBook, setSelectedBook]);
+  }, [dispatch, setSelectedBook]);
 
   const handleDeleteBook = useCallback((bookId: string) =>{
-    console.log('ola');
     dispatch(deleteBook(bookId));
     history.push('/dashboard');
-  }, []);
+  }, [history, dispatch]);
 
   const handleEditComment = useCallback( (updatedComment: IComment) => {
     // comment
     dispatch(editComment({...editingComment, ...updatedComment}));
-  }, [dispatch, editingComment, editComment]);
+  }, [dispatch, editingComment]);
 
   return (
     <Container>

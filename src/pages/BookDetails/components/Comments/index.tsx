@@ -1,16 +1,15 @@
-import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import { createComment, editComment, deleteComment } from '../../../../store/ducks/comments/actions';
 import * as commentStore from '../../../../services/commentStore';
-import {orderByDate , orderByAZ} from '../../../../utils/ordenator';
+import orderBy from '../../../../utils/orderBy';
 
 import Input from '../../../../components/Input';
 import TextArea from '../../../../components/TextArea';
 import Comment from './components/comment';
 
-import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 
 import { IComment } from '../../../../store/ducks/comments/types';
@@ -34,8 +33,6 @@ interface StateProps {
 const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIsOpen}) => {
   const [bookComments, setBookComments] = useState<IComment[]>([]);
 
-  orderByAZ();
-
   useEffect(()=>{
     commentStore.put(comments);
   },[comments]);
@@ -43,8 +40,6 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
   useEffect(()=>{
     setBookComments(comments);
   },[comments]);
-
-  const formRef = useRef<FormHandles>(null);
 
   const handleSubmit = useCallback((comment: IComment) => {
     const newComment = {
@@ -54,31 +49,26 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
 
     const formattedComment = commentStore.post(newComment);
     dispatch(createComment(formattedComment));
-  }, [selectedBook]);
+  }, [selectedBook, dispatch]);
 
   const handleEditComment = useCallback( (updatedComment: IComment) => {
     dispatch(editComment(updatedComment));
-  }, []);
+  }, [dispatch]);
 
   const handleDeleteComment = useCallback( (commentId: string) => {
     dispatch(deleteComment(commentId));
     commentStore.deleteComment(commentId);
-  }, []);
+  }, [dispatch]);
 
   const formattedComments = useMemo(() => {
     const thisBookComments = bookComments.filter( comment => comment.parentId === selectedBook.id);
-    return orderByDate(thisBookComments, 'asc');
+    return orderBy(thisBookComments, 'DATE', 'DESC');
   }, [bookComments, selectedBook]);
-
-  const formatDate = useCallback((created_at: Date) => {
-    const date = new Date(created_at);
-    return date.toLocaleDateString();
-  }, [selectedBook]);
 
   return (
     <Container>
       <Content>
-        <strong>Comments</strong>
+        <h3>Comments</h3>
         <CommentsSection>
           { formattedComments &&
             formattedComments.map( (comment: IComment) => (
@@ -94,7 +84,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
           }
         </CommentsSection>
         <AddCommentSection>
-        <strong>Add your comment</strong>
+        <h3>Add your comment</h3>
           <Form onSubmit={handleSubmit}>
             <Input name="author" placeholder="Type your name" />
             <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />

@@ -19,7 +19,7 @@ const SignIn: React.FC = () => {
 
         <Link to="/dashboard">
           <DoubleArrow />
-          <p>Entrar</p>
+          <p>Log In</p>
         </Link>
       </Content>
       <Background />

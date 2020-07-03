@@ -5,7 +5,8 @@ import { createBook } from '../../store/ducks/books/actions';
 import * as bookStore from '../../services/bookStore';
 import * as categoryStore from '../../services/categoryStore';
 
-import { orderByDate } from '../../utils/ordenator';
+import orderBy from '../../utils/orderBy';
+import filterBy from '../../utils/filterBy';
 
 import {
   Container,
@@ -15,11 +16,11 @@ import {
 
 import ModalAddBook from '../../components/ModalAddBook';
 
-// import Header from './components/Header';
 import Header from '../../components/Header';
-import BooksContainer from './components/BooksContainer';
+import BooksContainer from '../../components/BooksContainer';
 
 import { IBook } from '../../store/ducks/books/types';
+import { Link } from 'react-router-dom';
 
 interface StateProps {
   books: IBook[];
@@ -40,12 +41,17 @@ type Props = StateProps & DispatchProps
 const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   const [availableBooks, setAvailableBooks] = useState<IBook[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
-  const [categories, setCategories] = useState();
+  const [orderType, setOrderType] = useState('A-Z');
+  const [orderDirection, setOrderDirection] = useState('ASC');
+  const [nameFilter, setNameFilter] = useState('');
 
   useEffect(()=> {
       setAvailableBooks(books);
-      setCategories(categoryStore.get());
-  }, [availableBooks]);
+  }, [availableBooks, books]);
+
+  useEffect(()=> {
+    console.log(nameFilter);
+  }, [nameFilter]);
 
   useEffect(()=>{
     bookStore.put(availableBooks);
@@ -61,24 +67,57 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
   }, [dispatch, setAvailableBooks]);
 
   const uncategorizedBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'uncategorized');
-  }, [availableBooks, categoryStore, categories]);
+    const filteredBooks = filterBy(availableBooks, 'uncategorized', nameFilter);
+
+    if( orderType || orderDirection ){
+      console.log('un: ',filteredBooks);
+      return orderBy(filteredBooks, orderType, orderDirection);
+    } else {
+      console.log('2');
+      return filteredBooks;
+    }
+  }, [availableBooks, orderType, orderDirection, nameFilter]);
 
   const wantToReadBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'wantToRead');
-  }, [availableBooks]);
+    const filteredBooks = filterBy(availableBooks, 'wantToRead', nameFilter);
 
-  const readingBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'reading');
-  }, [availableBooks]);
+    if( orderType || orderDirection ){
+      return orderBy(filteredBooks, orderType, orderDirection);
+    } else {
+      return filteredBooks;
+    }
+  }, [availableBooks, orderType, orderDirection, nameFilter]);
+
+  const currentlyReadingBooks = useMemo(() => {
+    const filteredBooks = filterBy(availableBooks, 'reading', nameFilter);
+
+    if( orderType || orderDirection ){
+      return orderBy(filteredBooks, orderType, orderDirection);
+    } else {
+      return filteredBooks;
+    }
+  }, [availableBooks, orderType, orderDirection, nameFilter]);
 
   const readBooks = useMemo(() => {
-    return availableBooks.filter((book) => book.category === 'read');
-  }, [availableBooks]);
+    const filteredBooks = filterBy(availableBooks, 'read', nameFilter);
+
+    if( orderType || orderDirection ){
+      return orderBy(filteredBooks, orderType, orderDirection);
+    } else {
+      return filteredBooks;
+    }
+  }, [availableBooks, orderType, orderDirection, nameFilter]);
 
   return (
     <Container>
-      <Header toggleModal={toggleModal} orderBy />
+      <Header
+        toggleModal={toggleModal}
+        orderBy
+        setOrderType={setOrderType}
+        setOrderDirection={setOrderDirection}
+        nameFilter={nameFilter}
+        setNameFilter={setNameFilter}
+      />
 
       <ModalAddBook
         isOpen={modalOpen}
@@ -88,16 +127,16 @@ const Dashboard: React.FC<Props> = ({books, dispatch}) => {
 
       <Content>
         <BooksContainer booksProps={uncategorizedBooks}>
-          <SectionTitle>Uncategorized Books</SectionTitle>
+          <SectionTitle><Link to="/">Uncategorized Books</Link></SectionTitle>
         </BooksContainer>
         <BooksContainer booksProps={wantToReadBooks}>
-          <SectionTitle>Want to read Books</SectionTitle>
+          <SectionTitle><Link to="/want-to-read-books">Want to read Books</Link></SectionTitle>
         </BooksContainer>
-        <BooksContainer booksProps={readingBooks}>
-          <SectionTitle>Currently reading books Books</SectionTitle>
+        <BooksContainer booksProps={currentlyReadingBooks}>
+          <SectionTitle><Link to="/currently-reading-books">Currently reading books Books</Link></SectionTitle>
         </BooksContainer>
         <BooksContainer booksProps={readBooks}>
-          <SectionTitle>Read Books</SectionTitle>
+          <SectionTitle><Link to="/read-books">Read Books</Link></SectionTitle>
         </BooksContainer>
       </Content>
     </Container>

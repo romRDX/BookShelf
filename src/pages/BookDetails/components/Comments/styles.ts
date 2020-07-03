@@ -22,7 +22,7 @@ export const Content = styled.div`
     max-width: 350px;
   }
 
-  strong {
+  h3 {
     display: block;
     color: black;
     font-size: 32px;
