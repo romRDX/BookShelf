@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import { FiCheckSquare } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
@@ -20,10 +20,18 @@ const ModalEditBook: React.FC<IModalProps> = ({
   setIsOpen,
 }) => {
   const formRef = useRef<FormHandles>(null);
-
+  const [addCommentError, setAddCommentError] = useState(false);
   const { selectedComment, updateComment } = useComments();
 
   const handleSubmit = useCallback((data: IComment) => {
+      if(data.author.length < 2 ||
+        data.body.length < 2
+      ){
+        setAddCommentError(true);
+        return;
+      }
+      setAddCommentError(false);
+
       const updatedComment = {
         ...selectedComment,
         ...data,
@@ -43,12 +51,13 @@ const ModalEditBook: React.FC<IModalProps> = ({
         <Input name="author" placeholder="Name" />
         <TextArea name="body" placeholder="Comment" rows={9} cols={85} />
 
-        <button type="submit" data-testid="edit-book-button">
+        <button type="submit" data-testid="edit-comment-button">
           <div className="text">Apply</div>
           <div className="icon">
             <FiCheckSquare size={24} />
           </div>
         </button>
+        { addCommentError && <p>Title, Author and description should have at least 2 characters.</p>}
       </Form>
     </Modal>
   );

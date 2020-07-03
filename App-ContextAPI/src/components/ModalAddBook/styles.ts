@@ -13,6 +13,14 @@ export const Form = styled(Unform)`
     margin-bottom: 40px;
   }
 
+  input {
+    color: black;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
+
   textarea {
     border: 0;
     margin: 0;
@@ -51,5 +59,12 @@ export const Form = styled(Unform)`
       border-radius: 0 8px 8px 0;
       margin: 0 auto;
     }
+  }
+
+  span {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
   }
 `;

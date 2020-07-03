@@ -59,4 +59,11 @@ export const Form = styled(Unform)`
       margin: 0 auto;
     }
   }
+
+  p {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
+  }
 `;

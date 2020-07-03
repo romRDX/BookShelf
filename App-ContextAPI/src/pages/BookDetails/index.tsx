@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useBooks } from '../../hooks/booksContext';
 
-import 'react-day-picker/lib/style.css';
 import { Container, Content } from './styles';
 
 import Details from './components/Details';
@@ -25,7 +24,7 @@ interface State {
   }
 }
 
-const BookDetails: React.FC<State> = ({location}) => {
+const BookDetails: React.FC<State> = () => {
   const history = useHistory();
   const { selectedBook, setSelectedBook } = useBooks();
 
@@ -34,6 +33,7 @@ const BookDetails: React.FC<State> = ({location}) => {
   const [editCommentModalOpen, setEditCommentModalOpen] = useState(false);
 
   const { setSelectedComment } = useComments();
+  const { deleteBook } = useBooks();
 
   const toggleModal = useCallback( (): void => {
     setModalOpen(!modalOpen);
@@ -60,6 +60,7 @@ const BookDetails: React.FC<State> = ({location}) => {
 
   // Delete a book, update it at redux global state an sends user back to dashboard
   const handleDeleteBook = useCallback((bookId: string) =>{
+    deleteBook(bookId);
     history.push('/dashboard');
   }, [history]);
 

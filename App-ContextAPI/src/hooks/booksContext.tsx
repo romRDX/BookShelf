@@ -51,7 +51,19 @@ export const BookProvider: React.FC = ({ children }) => {
   }, [availableBooks]);
 
   const deleteBook = useCallback( (id: string) => {
+    const updatedComments = availableBooks.map( (book: IBook) => {
+      if(book.id === id){
+        return {
+          ...book,
+          deleted: true
+        }
+      } else {
+        return book;
+      }
+    })
 
+    setAvailableBooks(updatedComments);
+    bookStore.deleteBook(id);
   }, []);
 
   return (

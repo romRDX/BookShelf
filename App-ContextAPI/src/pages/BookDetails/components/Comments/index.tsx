@@ -27,8 +27,15 @@ const Comments: React.FC<StateProps> = ({ setIsOpen }) => {
   useEffect(() => {
     setBookComments( contextComments.filter( comment => comment.parentId === selectedBook.id) );
   }, [contextComments, selectedBook])
+  const [ commentError, setCommentError] = useState(false);
 
   const handleSubmit = useCallback((comment: IComment) => {
+    if(comment.author.length < 2 || comment.body.length < 2){
+      setCommentError(true);
+      return;
+    }
+    setCommentError(false);
+
     const newComment = {
       ...comment,
       parentId: selectedBook.id
@@ -38,7 +45,7 @@ const Comments: React.FC<StateProps> = ({ setIsOpen }) => {
   }, [selectedBook, createComment]);
 
   const formattedComments = useMemo(() => {
-    const thisBookComments = bookComments.filter( comment => comment.parentId === selectedBook.id);
+    const thisBookComments = bookComments.filter( (comment: IComment) => comment.parentId === selectedBook.id);
     return orderBy(thisBookComments, 'DATE', 'ASC');
   }, [bookComments, selectedBook]);
 
@@ -64,6 +71,7 @@ const Comments: React.FC<StateProps> = ({ setIsOpen }) => {
             <Input name="author" placeholder="Type your name" />
             <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />
             <button type="submit" data-testid="add-comment-button">Publish</button>
+            { commentError && <p>Title, Author and description should have at least 2 characters.</p>}
           </Form>
         </AddCommentSection>
       </Content>

@@ -13,6 +13,14 @@ export const Form = styled(Unform)`
     margin-bottom: 40px;
   }
 
+  input {
+    color: black;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
+
   button {
     margin-top: 48px;
     align-self: flex-end;
@@ -53,7 +61,10 @@ export const Form = styled(Unform)`
     }
   }
 
-  input {
-    color: #000;
+  p {
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
   }
 `;

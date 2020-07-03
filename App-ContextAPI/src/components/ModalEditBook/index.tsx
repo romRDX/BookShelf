@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import * as categoryStore from '../../services/categoryStore';
 
@@ -23,10 +23,19 @@ const ModalEdiBook: React.FC<IModalProps> = ({
   setIsOpen,
 }) => {
   const formRef = useRef<FormHandles>(null);
-
+  const [addBookError, setAddBookError] = useState(false);
   const {selectedBook, updateBook} = useBooks();
 
   const handleSubmit = useCallback((data: IBook) => {
+      if(data.author.length < 2 ||
+        data.title.length < 2 ||
+        data.description.length < 2
+      ){
+        setAddBookError(true);
+        return;
+      }
+      setAddBookError(false);
+
       const formattedData = {
         ...selectedBook,
         ...data,
@@ -55,6 +64,7 @@ const ModalEdiBook: React.FC<IModalProps> = ({
             <FiCheckSquare size={24} />
           </div>
         </button>
+        { addBookError && <p>Title, Author and description should have at least 2 characters.</p>}
       </Form>
     </Modal>
   );

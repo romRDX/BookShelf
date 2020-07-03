@@ -60,3 +60,20 @@ export const patch = (updatedBook: IBook) => {
 
   localStorage.setItem('Sheetgo/Books', JSON.stringify(updatedStoredBooks));
 };
+
+export const deleteBook = (bookId: string) => {
+  const books = get();
+
+  const updatedBooks = books.map( (book: IBook) => {
+    if(book.id === bookId){
+      return {
+        ...book,
+        deleted: true
+      }
+    } else {
+      return book;
+    }
+  })
+
+  put(updatedBooks);
+};

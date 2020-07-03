@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import { FiCheckSquare } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
@@ -21,8 +21,18 @@ const ModalAddBook: React.FC<IModalProps> = ({
   handleAddBook,
 }) => {
   const formRef = useRef<FormHandles>(null);
+  const [addBookError, setAddBookError] = useState(false);
 
   const handleSubmit = useCallback((book: IBook): any => {
+    if(book.author.length < 2 ||
+      book.title.length < 2 ||
+      book.description.length < 2
+    ){
+      setAddBookError(true);
+      return;
+    }
+    setAddBookError(false);
+
     handleAddBook(book);
     setIsOpen();
   }, [handleAddBook, setIsOpen]);
@@ -42,6 +52,7 @@ const ModalAddBook: React.FC<IModalProps> = ({
             <FiCheckSquare size={24} />
           </div>
         </button>
+        { addBookError && <span>Title, Author and description should have at least 2 characters.</span>}
       </Form>
     </Modal>
   );
