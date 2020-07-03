@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { shade } from 'polished';
-
 export const Container = styled.button`
   position: absolute;
   top: -70px;

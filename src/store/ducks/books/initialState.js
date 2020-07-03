@@ -6,7 +6,7 @@ const books = [
   {
     id: '2835c135-a5a5-4260-9d00-b68430b19f82',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 1,
     title: 'title 1',
     description: defaultDescription,
     author: 'author 1',
@@ -16,7 +16,7 @@ const books = [
   {
     id: '531f3e88-8b03-485c-9c84-1cbc9fcd5806',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 2,
     title: 'title 2',
     description: defaultDescription,
     author: 'author 2',
@@ -26,7 +26,7 @@ const books = [
   {
     id: 'b898aaa7-a47a-4274-9f22-f17b286aa4d1',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 3,
     title: 'title 3',
     description: defaultDescription,
     author: 'author 3',
@@ -36,7 +36,7 @@ const books = [
   {
     id: 'c32c07d2-d2ae-4416-8a2c-1148c829c5a7',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 4,
     title: 'title 4',
     description: defaultDescription,
     author: 'author 4',
@@ -46,7 +46,7 @@ const books = [
   {
     id: '4ccde7b5-9be1-4430-b2dd-1cef3d4a8239',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 5,
     title: 'title 5',
     description: defaultDescription,
     author: 'author 5',
@@ -56,11 +56,31 @@ const books = [
   {
     id: 'f35d4319-a735-41ff-b89a-8eaa72d45982',
     img: Image,
-    created_at: Date.now(),
+    created_at: Date.now() + 6,
     title: 'title 6',
     description: defaultDescription,
     author: 'author 6',
     category: 'read',
+    deleted: false,
+  },
+  {
+    id: 'f35d4319-a735-41ff-b89a-8eaa72d45983',
+    img: Image,
+    created_at: Date.now() + 7,
+    title: 'title 7',
+    description: defaultDescription,
+    author: 'author 7',
+    category: 'uncategorized',
+    deleted: false,
+  },
+  {
+    id: 'f35d4319-a735-41ff-b89a-8eaa72d45984',
+    img: Image,
+    created_at: Date.now() + 8,
+    title: 'title 8',
+    description: defaultDescription,
+    author: 'author 8',
+    category: 'uncategorized',
     deleted: false,
   },
 ];

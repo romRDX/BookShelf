@@ -1,5 +1,4 @@
 import React, {
-  InputHTMLAttributes,
   TextareaHTMLAttributes,
   useEffect,
   useRef,
@@ -46,14 +45,6 @@ const Input: React.FC<IInputProps> = ({ name, icon: Icon, ...rest }) => {
   return (
     <Container isFilled={isFilled} isFocused={isFocused}>
       {Icon && <Icon size={20} />}
-
-      {/* <input
-        onFocus={handleInputFocus}
-        onBlur={handleInputBlur}
-        defaultValue={defaultValue}
-        ref={inputRef}
-        {...rest}
-      /> */}
       <textarea
         onFocus={handleInputFocus}
         onBlur={handleInputBlur}

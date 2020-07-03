@@ -34,7 +34,7 @@ const ModalEditFood: React.FC<IModalProps> = ({
   useEffect(() => {
     formRef.current?.setData({ author: editingComment.author, body: editingComment.body  });
     // formRef.current?.setData({   });
-  }, []);
+  }, [editingComment.author, editingComment.body]);
 
   const handleSubmit = useCallback(
     async (data: IComment) => {

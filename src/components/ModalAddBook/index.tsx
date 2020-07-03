@@ -14,7 +14,7 @@ import { IBook } from '../../store/ducks/books/types';
 interface IModalProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleAddBook: (book: IBook) => void;
+  handleAddBook: (book: any) => void;
 }
 
 const ModalAddBook: React.FC<IModalProps> = ({
@@ -24,22 +24,16 @@ const ModalAddBook: React.FC<IModalProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null);
 
-  const categoryStore = {
-    wantToRead: 'Want to Read',
-    reading: 'Currently reading',
-    read: 'Read'
-  }
-
-  const handleSubmit = useCallback((book: IBook) => {
+  const handleSubmit = useCallback((book: IBook): any => {
 
       const newBook = {
         ...book,
         id: uuid(),
         img: bookImage,
-        created_at: new Date(Date.now()),
+        created_at: Date.now(),
         category: 'uncategorized',
         deleted: false,
-      }
+      };
 
       handleAddBook(newBook);
       setIsOpen();

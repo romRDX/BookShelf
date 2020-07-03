@@ -60,8 +60,3 @@ export const Form = styled(Unform)`
     }
   }
 `;
-
-export const CategorySelector = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
