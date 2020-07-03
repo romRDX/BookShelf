@@ -42,6 +42,12 @@ export const AddCommentSection = styled.div`
   border-top: 1px solid black;
   padding-top: 20px;
 
+  p {
+    color: red;
+    font-weight: 700;
+    font-size: 20px;
+  }
+
   form {
     margin-top: 25px;
 

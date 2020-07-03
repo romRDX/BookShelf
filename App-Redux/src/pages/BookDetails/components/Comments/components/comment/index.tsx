@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-import{ IComment } from '../../../../../../store/ducks/comments/types';
+import { IComment } from '../../../../../../store/ducks/comments/types';
 
 import { AccountCircle, Edit, Delete} from '@material-ui/icons';
 

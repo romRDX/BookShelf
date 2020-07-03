@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useRef, useCallback, useState } from 'react';
 
 import * as categoryStore from '../../services/categoryStore';
 
@@ -27,9 +27,17 @@ const ModalEditFood: React.FC<IModalProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null);
 
-  const handleSubmit = useCallback(
-    async (data: IBook) => {
-      // EDIT A FOOD PLATE AND CLOSE THE MODAL
+  const [ editBookError, setEditBookError] = useState(false);
+
+  const handleSubmit = useCallback((data: IBook) => {
+      if(data.author.length < 2 ||
+        data.title.length < 2 ||
+        data.description.length < 2
+      ){
+        setEditBookError(true);
+        return;
+      }
+
       const formattedData = {
         ...editingBook,
         ...data,
@@ -58,6 +66,7 @@ const ModalEditFood: React.FC<IModalProps> = ({
             <FiCheckSquare size={24} />
           </div>
         </button>
+        { editBookError && <span>Title, Author and description should have at least 3 characters</span>}
       </Form>
     </Modal>
   );

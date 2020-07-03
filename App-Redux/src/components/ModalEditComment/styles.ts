@@ -54,6 +54,17 @@ export const Form = styled(Unform)`
   }
 
   input {
-    color: #000;
+    color: black;
+
+    &::placeholder {
+      color: #b7b7cc;
+    }
+  }
+
+  p {''
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+    margin-top: 10px;
   }
 `;

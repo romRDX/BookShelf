@@ -31,13 +31,15 @@ const BooksContainer: React.FC<BooksContainerProps> = ({
     <Container>
       {children}
       <BooksList>
-        {booksProps.map((book: Book) => (
-          !book.deleted && <Book onClick={() => sendToDetails(book)} key={book.id}>
-            <img src={book.img} alt={book.title} />
-            <strong>{book.title}</strong>
-            <strong>{book.author}</strong>
-          </Book>
-        ))}
+        { booksProps.length > 0 ?
+          booksProps.map((book: Book) => (
+            !book.deleted && <Book onClick={() => sendToDetails(book)} key={book.id}>
+              <img src={book.img} alt={book.title} />
+              <strong>{book.title}</strong>
+              <strong>{book.author}</strong>
+            </Book>
+          )) : <p>No Books Found</p>
+        }
       </BooksList>
     </Container>
   );

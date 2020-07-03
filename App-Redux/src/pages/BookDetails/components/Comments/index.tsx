@@ -32,6 +32,7 @@ interface StateProps {
 
 const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIsOpen}) => {
   const [bookComments, setBookComments] = useState<IComment[]>([]);
+  const [commentError, setCommentError] = useState(false);
 
   useEffect(()=>{
     commentStore.put(comments);
@@ -41,7 +42,14 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
     setBookComments(comments);
   },[comments]);
 
-  const handleSubmit = useCallback((comment: IComment) => {
+  const handleSubmit = useCallback((comment: IComment, { reset }) => {
+    if(comment.author.length < 2 || comment.body.length < 2){
+      setCommentError(true);
+      return 0;
+    }
+
+    setCommentError(false);
+
     const newComment = {
       ...comment,
       parentId: selectedBook.id
@@ -49,6 +57,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
 
     const formattedComment = commentStore.post(newComment);
     dispatch(createComment(formattedComment));
+    reset();
   }, [selectedBook, dispatch]);
 
   const handleEditComment = useCallback( (updatedComment: IComment) => {
@@ -62,7 +71,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
 
   const formattedComments = useMemo(() => {
     const thisBookComments = bookComments.filter( comment => comment.parentId === selectedBook.id);
-    return orderBy(thisBookComments, 'DATE', 'DESC');
+    return orderBy(thisBookComments, 'DATE', 'ASC');
   }, [bookComments, selectedBook]);
 
   return (
@@ -90,6 +99,7 @@ const Comments: React.FC<StateProps> = ({comments, dispatch, selectedBook, setIs
             <TextArea name="body" placeholder="Type your comment here" rows={9} cols={85} />
             <button type="submit" data-testid="add-book-button">Publish</button>
           </Form>
+          { commentError && <p>Name and body should have at least 3 characters each!</p> }
         </AddCommentSection>
       </Content>
     </Container>

@@ -1,4 +1,4 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useRef, useCallback, useEffect, useState } from 'react';
 
 import { FiCheckSquare } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
@@ -31,14 +31,19 @@ const ModalEditFood: React.FC<IModalProps> = ({
 }) => {
   const formRef = useRef<FormHandles>(null);
 
+  const [ editCommentError, setEditCommentError] = useState(false);
+
   useEffect(() => {
     formRef.current?.setData({ author: editingComment.author, body: editingComment.body  });
-    // formRef.current?.setData({   });
   }, [editingComment.author, editingComment.body]);
 
-  const handleSubmit = useCallback(
-    async (data: IComment) => {
-      // EDIT A FOOD PLATE AND CLOSE THE MODAL
+  const handleSubmit = useCallback((data: IComment) => {
+    if(data.author.length < 2 ||
+      data.body.length < 2
+    ){
+      setEditCommentError(true);
+      return;
+    }
       handleEditComment(data);
       setIsOpen();
     },
@@ -59,6 +64,7 @@ const ModalEditFood: React.FC<IModalProps> = ({
             <FiCheckSquare size={24} />
           </div>
         </button>
+        { editCommentError && <p>Name and body should both have at least 2 characters.</p>}
       </Form>
     </Modal>
   );

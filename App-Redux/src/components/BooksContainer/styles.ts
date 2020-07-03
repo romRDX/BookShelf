@@ -24,6 +24,14 @@ export const BooksList = styled.div`
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
+
+  p {
+    color: #000;
+    font-size: 20px;
+    font-family: 'Roboto';
+    font-weight: 400;
+    margin-bottom: 15px;
+  }
 `;
 
 export const Book = styled.div`
