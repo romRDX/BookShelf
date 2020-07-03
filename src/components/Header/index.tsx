@@ -23,20 +23,22 @@ import logoImg from '../../assets/logo.png';
 
 interface IProps {
   toggleModal(): void;
+  handleChangeView?: (view: string) => void;
   orderBy?: boolean;
-  setOrderType: (orderType: string) => void;
-  setOrderDirection: (orderDirection: string) => void;
-  nameFilter: string;
-  setNameFilter: (nameFilter: string) => void;
+  setOrderType?: (orderType: string) => void;
+  setOrderDirection?: (orderDirection: string) => void;
+  nameFilter?: string;
+  setNameFilter?: (nameFilter: string) => void;
 }
 
 const Header: React.FC<IProps> = ({
   toggleModal,
+  handleChangeView,
   orderBy = false,
-  setOrderType,
-  setOrderDirection,
+  setOrderType = () => null,
+  setOrderDirection = () => null,
   nameFilter,
-  setNameFilter,
+  setNameFilter = () => null,
 }) => {
   const [selectedOrderType, setSelectedOrderType] = useState('A-Z');
   const [selectedOrderDirection, setSelectedOrderDirection] = useState('ASC');
@@ -44,43 +46,41 @@ const Header: React.FC<IProps> = ({
   const handleSetOrderType = useCallback((type: string)=>{
     setSelectedOrderType(type);
     setOrderType(type);
-  },[]);
+  },[setOrderType]);
 
   const handleSetOrderDirection = useCallback((direction: string)=>{
     setSelectedOrderDirection(direction);
     setOrderDirection(direction);
-  },[]);
+  },[setOrderDirection]);
 
   return (
     <Container>
       <HeaderContent>
-        <LogoContainer>
-          <Link to="/dashboard">
-            <img src={logoImg} alt="BookShelf" />
-          </Link>
+        <LogoContainer onClick={() => handleChangeView && handleChangeView('home')}>
+          <img src={logoImg} alt="BookShelf" />
           <span>Welcome to BookShelf</span>
         </LogoContainer>
 
         <NavBar>
-          <Link to="/dashboard">
+          <div onClick={() => handleChangeView && handleChangeView('home')}>
             <p>Home</p>
             <Home />
-          </Link>
+          </div>
 
-          <Link to="/want-to-read-books">
+          <div onClick={() => handleChangeView && handleChangeView('wantToRead')}>
             <p>Want to Read</p>
             <CollectionsBookmark />
-          </Link>
+          </div>
 
-          <Link to="/currently-reading-books">
+          <div onClick={() => handleChangeView && handleChangeView('currentlyReading')}>
             <p>Currently Reading</p>
             <FiBookOpen />
-          </Link>
+          </div>
 
-          <Link to="/read-books">
+          <div onClick={() => handleChangeView && handleChangeView('read')}>
             <p>Read</p>
             <FiBook />
-          </Link>
+          </div>
 
           <div onClick={toggleModal}>
             <p>New Book</p>

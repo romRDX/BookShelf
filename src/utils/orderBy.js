@@ -1,3 +1,10 @@
+/**
+ * Receives:
+ * @param {*} data - Array of Comments of type IComment or Books of type IBook
+ * @param {*} type - Type of sorting (by date, alphabetical)
+ * @param {*} direction - If its Ascending or Descending
+ * There is an specific process for each combination of type and direction.
+ */
 
 export default function orderBy(data, type, direction){
 
@@ -16,19 +23,19 @@ export default function orderBy(data, type, direction){
     }
 
     case 'A-Z/DESC': {
-      const sortArray = data.slice().sort(function(a, b) {
+      const sortedArray = data.slice().sort(function(a, b) {
         return b.title.localeCompare(a.title);
       });
 
-      return sortArray;
+      return sortedArray;
     }
 
     case 'A-Z/ASC': {
-      const sortArray = data.slice().sort(function(a, b) {
+      const sortedArray = data.slice().sort(function(a, b) {
         return a.title.localeCompare(b.title);
       });
 
-      return sortArray;
+      return sortedArray;
     }
 
     default: {

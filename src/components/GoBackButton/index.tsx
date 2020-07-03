@@ -6,19 +6,22 @@ import { Container } from './styles';
 import { useHistory } from 'react-router-dom';
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  loading?: boolean;
+  disable?: boolean;
 };
 
-const Button: React.FC<ButtonProps> = ({ children, loading, ...restx }) => {
+const Button: React.FC<ButtonProps> = ({ children, disable = false, ...restx }) => {
   const history = useHistory();
 
   const handleGoBack = useCallback(() => {
-    history.goBack();
+    if(!disable) {
+      history.goBack();
+    }
+
   },[history]);
 
   return (
     <Container onClick={handleGoBack} type="button" {...restx}>
-      {loading ? 'Carregando...' : children}
+      { children }
       <ArrowDownwardRounded />
     </Container>
   )

@@ -1,5 +1,6 @@
 /**
- *  Comments Local Storage Service
+ * Local Storage Comments Service.
+ * Manipulate the comments object in local storage.
  */
 import { v4 as uuid } from 'uuid';
 import { IComment } from '../store/ducks/comments/types';

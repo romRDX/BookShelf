@@ -6,8 +6,6 @@ import { Form } from './styles';
 import Modal from '../Modal';
 import Input from '../Input';
 import TextArea from '../TextArea';
-import bookImage from '../../assets/book.jpg';
-import { v4 as uuid } from 'uuid';
 
 import { IBook } from '../../store/ducks/books/types';
 
@@ -26,16 +24,16 @@ const ModalAddBook: React.FC<IModalProps> = ({
 
   const handleSubmit = useCallback((book: IBook): any => {
 
-      const newBook = {
-        ...book,
-        id: uuid(),
-        img: bookImage,
-        created_at: Date.now(),
-        category: 'uncategorized',
-        deleted: false,
-      };
+      // const newBook = {
+      //   ...book,
+      //   id: uuid(),
+      //   img: bookImage,
+      //   created_at: Date.now(),
+      //   category: 'uncategorized',
+      //   deleted: false,
+      // };
 
-      handleAddBook(newBook);
+      handleAddBook(book);
       setIsOpen();
     }, [handleAddBook, setIsOpen]);
 

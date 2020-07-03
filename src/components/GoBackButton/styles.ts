@@ -26,6 +26,11 @@ export const Container = styled.button`
     color: #000;
   }
 
+  @media only screen and (max-width: 1320px) {
+    top: -80px;
+    left: 2%;
+  }
+
   svg {
     color: lightgray;
     width: 35px;

@@ -1,5 +1,6 @@
 /**
- * Local Categories Storage Service
+ * Local Storage Categories Service.
+ * Manipulate the categories object in local storage.
  */
 export const post = () => {
   const categoryStore = {

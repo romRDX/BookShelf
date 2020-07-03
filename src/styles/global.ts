@@ -30,4 +30,10 @@ export default createGlobalStyle`
   .ReactModal__Overlay {
     z-index: 2;
   }
+
+  .ReactModal__Content {
+    @media only screen and (max-width: 1200px) {
+      max-width: 85%;
+    }
+  }
 `;

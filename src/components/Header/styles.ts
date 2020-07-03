@@ -5,6 +5,10 @@ export const Container = styled.header`
   padding: 16px 0;
   background: #28262e;
   position: relative;
+
+  @media only screen and (max-width: 1320px) {
+    margin-bottom: 100px;
+  }
 `;
 
 export const HeaderContent = styled.div`
@@ -14,6 +18,10 @@ export const HeaderContent = styled.div`
   align-items: center;
   justify-content: space-between;
   flex-direction: row;
+
+  @media only screen and (max-width: 1120px) {
+    flex-direction: column;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -32,7 +40,7 @@ export const LogoContainer = styled.div`
 export const NavBar = styled.div`
   display: flex;
 
-  a, div {
+  div {
     margin-left: auto;
     display: flex;
     align-items: center;
@@ -45,12 +53,28 @@ export const NavBar = styled.div`
     margin: 10px;
     transition: background 0.5s;
 
+    &:last-child {
+      background: #33ff33;
+
+      p {
+        border-right: 0.2px solid #FFF;
+      }
+
+      &:hover {
+        background: ${shade(0.2, '#33ff33')};
+      }
+    }
+
     p {
       color: #fff;
       font-family: 'Roboto';
       font-size: 20px;
       border-right: 0.2px solid #808080;
       padding-right: 8px;
+
+      @media only screen and (max-width: 855px) {
+        border-right: 0;
+      }
     }
 
     svg {
@@ -58,22 +82,14 @@ export const NavBar = styled.div`
       width: 28px;
       height: 20px;
       margin-left: 2px;
+
+      @media only screen and (max-width: 855px) {
+        display: none;
+      }
     }
 
     &:hover {
       background: ${shade(0.2, '#F5B53F')};
-    }
-  }
-
-  div {
-    background: #33ff33;
-
-    p {
-      border-right: 0.2px solid #FFF;
-    }
-
-    &:hover {
-      background: ${shade(0.2, '#33ff33')};
     }
   }
 `;

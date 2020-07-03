@@ -9,6 +9,7 @@ import Routes from './routes';
 import GlobalStyle from './styles/global';
 
 import * as categoryStore from './services/categoryStore';
+// Creating categories in local storage
 categoryStore.post();
 
 const App: React.FC = () => (
