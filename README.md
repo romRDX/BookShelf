@@ -1,6 +1,6 @@
-# Sheetgo-BookShelf
+# BookShelf
 
-Code for Sheetgo Test - Virtual Bookshelf Project.
+Virtual Bookshelf Project.
 
 ## Before Starting
 
@@ -51,11 +51,6 @@ Wait a few seconds and the application will open on your browser.
 - Feather/Icons
 - Unform
 - uuidv4
-
-
-### To-Do-List
-
-[https://www.notion.so/SHEETGO-5d3d4fe5742e4b28bff511ccb84e28a0](https://www.notion.so/SHEETGO-5d3d4fe5742e4b28bff511ccb84e28a0)
 
 ## Author
 
