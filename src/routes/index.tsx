@@ -4,8 +4,6 @@ import { Switch } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 
 import SignIn from '../pages/SignIn';
-
-// Routes for Context API
 import Dashboard from '../pages/Dashboard';
 import BookDetails from '../pages/BookDetails';
 
