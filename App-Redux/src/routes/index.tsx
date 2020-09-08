@@ -9,8 +9,8 @@ import BookDetails from '../pages/BookDetails';
 
 const Routes: React.FC = () => (
   <Switch>
-    <Route path="/" exact component={SignIn} />
-    <Route path="/dashboard" component={Dashboard} />
+    <Route path="/test" exact component={SignIn} />
+    <Route path="/" component={Dashboard} />
     <Route path="/book-details" component={BookDetails} />
   </Switch>
 );
