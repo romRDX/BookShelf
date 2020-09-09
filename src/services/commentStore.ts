@@ -43,11 +43,15 @@ export const patch = (updatedComment: IComment) => {
 
   const storedComments = get();
 
-  const updatedStoredCommentss = storedComments.map( (comment: IComment) => {
-    if(comment.id === updatedComment.id){
-      return updatedComment;
-    }
-  })
+  // const updatedStoredCommentss = storedComments.map( (comment: IComment) => {
+  //   if(comment.id === updatedComment.id){
+  //     return updatedComment;
+  //   }
+  // })
+
+  const updatedStoredCommentss = storedComments.find((comment: IComment) =>
+    comment.id === updatedComment.id
+  )
 
   localStorage.setItem('Sheetgo/Comment', JSON.stringify(updatedStoredCommentss));
 };
@@ -55,14 +59,21 @@ export const patch = (updatedComment: IComment) => {
 export const deleteComment = (commentId: string) => {
   const comments = get();
 
-  const updatedComments = comments.map( (comment: IComment) => {
-    if(comment.id === commentId){
-      return {
-        ...comment,
-        deleted: true
-      }
-    }
-  })
+  // const updatedComments = comments.map( (comment: IComment) => {
+  //   if(comment.id === commentId){
+  //     return {
+  //       ...comment,
+  //       deleted: true
+  //     }
+  //   }
+  // })
+
+  const foundComments = comments.find((comment: IComment) => comment.id === commentId);
+
+  const updatedComments = {
+    ...foundComments,
+    deleted: true,
+  }
 
   put(updatedComments);
 };
