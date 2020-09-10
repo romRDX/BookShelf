@@ -14,7 +14,7 @@ export const post = (newBook: IBook) => {
     ...newBook,
     id: uuid(),
     img: bookImage,
-    created_at: Date.now(),
+    created_at: new Date(Date.now()),
     category: 'uncategorized',
     deleted: false,
   }

@@ -5,9 +5,9 @@
 export const post = () => {
   const categoryStore = {
     uncategorized: 'Uncategorized',
-     wantToRead: 'Want to Read',
-     reading: 'Currently reading',
-     read: 'Read',
+    wantToRead: 'Want to Read',
+    reading: 'Currently reading',
+    read: 'Read',
   }
 
   localStorage.setItem('Sheetgo/Categories', JSON.stringify(categoryStore));

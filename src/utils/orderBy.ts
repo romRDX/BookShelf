@@ -6,7 +6,7 @@
  * There is an specific process for each combination of type and direction.
  */
 
-export default function orderBy(data, type, direction){
+export default function orderBy(data: Array<any> , type: string, direction: string){
 
   const typeDirection = type + '/' + direction;
 

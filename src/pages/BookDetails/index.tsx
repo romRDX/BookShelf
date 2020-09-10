@@ -42,13 +42,16 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
   const [editBookModalOpen, setEditBookModalOpen] = useState(false);
   const [editCommentModalOpen, setEditCommentModalOpen] = useState(false);
 
+
   useEffect(()=> {
     setSelectedBook(location.state);
   }, [location.state]);
 
+
   const toggleModal = useCallback( (): void => {
     setModalOpen(!modalOpen);
   },[setModalOpen, modalOpen]);
+
 
   const toggleEditCommentModal = useCallback( (comment?: IComment): void => {
     if(comment){
@@ -57,12 +60,14 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
     setEditCommentModalOpen(!editCommentModalOpen);
   },[setEditCommentModalOpen, editCommentModalOpen, setEditingComment]);
 
+
   const toggleEditBookModal = useCallback( (book?: IBook): void => {
     if(book){
       setEditingBook(book);
     }
     setEditBookModalOpen(!editBookModalOpen);
   },[setEditBookModalOpen, editBookModalOpen, setEditingBook]);
+
 
   const handleAddBook = useCallback( (newBook: IBook) => {
     const createdBook = bookStore.post(newBook);
@@ -73,6 +78,7 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
     history.push('book-details', createdBook);
   }, [dispatch, history]);
 
+
   const handleEditBook = useCallback( (updatedBook: IBook) => {
     // comment
     bookStore.patch(updatedBook);
@@ -81,10 +87,12 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
 
   }, [dispatch, setSelectedBook]);
 
+
   const handleDeleteBook = useCallback((bookId: string) =>{
     dispatch(deleteBook(bookId));
     history.push('/dashboard');
   }, [history, dispatch]);
+
 
   const handleEditComment = useCallback( (updatedComment: IComment) => {
     // comment
@@ -94,6 +102,7 @@ const BookDetails: React.FC<Statex> = ({location, dispatch}) => {
   const handleChangeView = useCallback( (view: string) => {
     history.push('/dashboard', view);
   }, [history]);
+
 
   return (
     <Container>

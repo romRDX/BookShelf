@@ -19,12 +19,12 @@ interface IModalProps {
   editingBook: IBook;
 }
 
-const ModalEditFood: React.FC<IModalProps> = ({
+const ModalEditFood = ({
   isOpen,
   setIsOpen,
   editingBook,
   handleEditBook,
-}) => {
+}: IModalProps) => {
   const formRef = useRef<FormHandles>(null);
 
   const [ editBookError, setEditBookError] = useState(false);

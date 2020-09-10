@@ -18,3 +18,10 @@ export interface IComment {
   author: string;
   deleted: boolean;
 }
+
+/**
+ * State type
+ */
+export interface CommentsState {
+  readonly data: IComment[];
+}

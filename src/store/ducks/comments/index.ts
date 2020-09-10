@@ -1,4 +1,6 @@
-import { CommentsTypes } from './types';
+import { Reducer } from 'redux';
+
+import { CommentsTypes, CommentsState } from './types';
 
 import initialState from './initialState';
 
@@ -10,18 +12,18 @@ const INITIAL_STATE = {
   data: storedComments ? storedComments : initialState,
 };
 
-const reducer = (state = INITIAL_STATE, action) => {
+const reducer: Reducer<CommentsState> = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case CommentsTypes.CREATE_COMMENT:
       return {
         ...state,
-        data: [...state.data, action.newComment],
+        data: [...state.data, action.payload.newComment],
       };
 
     case CommentsTypes.EDIT_COMMENT: {
       const newData = state.data.map( (comment) => {
-        if ( comment.id === action.newComment.id) {
-          return action.newComment;
+        if ( comment.id === action.payload.newComment.id) {
+          return action.payload.newComment;
         } else {
           return comment;
         }
@@ -35,7 +37,7 @@ const reducer = (state = INITIAL_STATE, action) => {
 
     case CommentsTypes.DELETE_COMMENT: {
       const newData = state.data.map( (comment) => {
-        if ( comment.id === action.commentId) {
+        if ( comment.id === action.payload.commentId) {
           return {
             ...comment,
             deleted: true

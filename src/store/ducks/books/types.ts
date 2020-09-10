@@ -20,3 +20,11 @@ export interface IBook {
   category: string;
   deleted: boolean;
 }
+
+
+/**
+ * State type
+ */
+export interface BooksState {
+  readonly data: IBook[];
+}

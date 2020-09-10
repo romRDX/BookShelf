@@ -11,7 +11,7 @@ export const post = (newComment: IComment) => {
   const formattedComment = {
     ...newComment,
     id: uuid(),
-    created_at: Date.now(),
+    created_at: new Date(Date.now()),
     deleted: false,
   }
 
@@ -43,12 +43,6 @@ export const patch = (updatedComment: IComment) => {
 
   const storedComments = get();
 
-  // const updatedStoredCommentss = storedComments.map( (comment: IComment) => {
-  //   if(comment.id === updatedComment.id){
-  //     return updatedComment;
-  //   }
-  // })
-
   const updatedStoredCommentss = storedComments.find((comment: IComment) =>
     comment.id === updatedComment.id
   )
@@ -58,15 +52,6 @@ export const patch = (updatedComment: IComment) => {
 
 export const deleteComment = (commentId: string) => {
   const comments = get();
-
-  // const updatedComments = comments.map( (comment: IComment) => {
-  //   if(comment.id === commentId){
-  //     return {
-  //       ...comment,
-  //       deleted: true
-  //     }
-  //   }
-  // })
 
   const foundComments = comments.find((comment: IComment) => comment.id === commentId);
 
