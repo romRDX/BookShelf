@@ -1,10 +1,7 @@
 # BookShelf
 
 Virtual Bookshelf Project.
-
-## Before Starting
-
-Please do notice that there are two projects folders within this repository, one uses Redux (App-Redux) and the other uses ContextAPI (App-ContextAPI) to share all the needed information with every component. The getting started proccess is the same for both, they are the exact same project with different ways of managing the state of the application.
+Take a look at it here: https://rdx-bookshelf-app.netlify.app/
 
 ## Getting Started
 
@@ -12,13 +9,6 @@ After downloading the project from this repository, enter any of the two folders
 
 ```
 cd App-Redux
-
-```
-
-or
-
-```
-cd App-ContextAPI
 
 ```
 
